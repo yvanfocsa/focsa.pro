@@ -1,5 +1,9 @@
+// Tout le code est encapsulé dans cet événement pour s'assurer que le HTML est chargé avant de le manipuler.
 document.addEventListener('DOMContentLoaded', function() {
-    // Binary rain animation
+
+    // --- DÉFINITIONS DES FONCTIONS ---
+
+    // Animation de la pluie binaire
     function createBinaryRain() {
         const container = document.getElementById('binaryRain');
         if (!container) return;
@@ -20,89 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         }
     }
-    
-    // Mobile menu toggle
-    document.getElementById('mobileMenuButton').addEventListener('click', function() {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-    });
-    
-    // Update year in footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-    
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-        threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (entry.target.id === 'skills') {
-                    // animateSkillBars(); // Fonction non définie dans le code original
-                }
-                entry.target.classList.add('animate-fadeIn');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Observe sections
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-    
-    // Smooth scrolling for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if(targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80, // 80px offset for fixed nav
-                    behavior: 'smooth'
-                });
-            }
-            
-            // Close mobile menu if open
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    });
-    
-    // Highlight active nav link on scroll
-    window.addEventListener('scroll', function() {
-        const scrollPosition = window.scrollY + 100;
-        
-        document.querySelectorAll('section').forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active-nav');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active-nav');
-                    }
-                });
-            }
-        });
-    });
-    
-    // CLI Typing Animation
-    // La fonction typeWriter() n'était pas appelée dans le code original
-    
-    // Smooth text animation
+
+    // Animation de machine à écrire pour le titre
     function animateTitle() {
         const text = "Cybersecurity Engineer | Network Specialist | Ethical Hacker";
         const element = document.getElementById("animatedTitle");
         if (!element) return;
-        
         let i = 0;
         const typingSpeed = 50;
         
@@ -113,15 +40,74 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(type, typingSpeed);
             }
         }
-        
-        setTimeout(type, 1000); // Start after 1 second
+        setTimeout(type, 1000); // Démarre après 1 seconde
     }
 
-    // Initialize
+    // NOTE: La fonction 'typeWriter' du code original n'était jamais appelée, je la laisse donc commentée
+    // pour que le comportement soit identique. Si vous en avez besoin, décommentez-la.
+    /*
+    function typeWriter() {
+        const text = "whoami";
+        const element = document.getElementById("typingText");
+        const cursor = document.querySelector(".blinking-cursor");
+        if(!element || !cursor) return;
+        let i = 0;
+        const typingSpeed = 80;
+        cursor.style.visibility = 'hidden';
+        
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, typingSpeed);
+            } else {
+                setTimeout(() => {
+                    const responseLine = document.createElement("div");
+                    responseLine.className = "terminal-line mb-4 ml-8 text-gray-300";
+                    responseLine.style.opacity = '0';
+                    responseLine.style.transition = 'opacity 1s ease-in-out';
+                    responseLine.textContent = "Cybersecurity Engineer | Network Security Specialist | Pentester";
+                    
+                    const newPrompt = document.createElement("div");
+                    newPrompt.className = "terminal-line";
+                    newPrompt.innerHTML = '<span class="text-neon-red">root@yvanfocsa:~$</span>';
+                    
+                    const terminal = document.getElementById("terminalPrompt");
+                    terminal.parentNode.insertBefore(responseLine, terminal.nextSibling);
+                    terminal.parentNode.insertBefore(newPrompt, responseLine.nextSibling);
+                    
+                    setTimeout(() => { responseLine.style.opacity = '1'; }, 100);
+                    
+                    newPrompt.innerHTML = '<span class="text-neon-red">root@yvanfocsa:~$</span> <span class="blinking-cursor">_</span>';
+                }, 500);
+            }
+        }
+        type();
+    }
+    */
+   
+    // NOTE: La fonction 'animateSkillBars' était appelée dans l'Observer mais n'a jamais été définie.
+    // Pour éviter une erreur dans la console, elle reste non définie ici, comme dans l'original.
+    // function animateSkillBars() { /* ... code manquant ... */ }
+
+
+    // --- EXÉCUTION ET ÉCOUTEURS D'ÉVÉNEMENTS ---
+
+    // Initialisation des animations
     createBinaryRain();
     animateTitle();
-    
-    // Project card hover effect
+    // typeWriter(); // Décommentez si vous voulez utiliser cette fonction
+
+    // Menu mobile
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    });
+
+    // Année en cours dans le footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Effet de survol sur les cartes projet (géré aussi en CSS)
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -134,4 +120,57 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = '';
         });
     });
+
+    // Défilement fluide pour les ancres
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Décalage pour la nav fixe
+                    behavior: 'smooth'
+                });
+            }
+            
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
+
+    // Mise en évidence du lien de navigation actif au défilement
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + 100;
+        
+        document.querySelectorAll('section').forEach(section => {
+            if (section.offsetTop <= scrollPosition && (section.offsetTop + section.offsetHeight) > scrollPosition) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active-nav');
+                    if (link.getAttribute('href') === `#${section.getAttribute('id')}`) {
+                        link.classList.add('active-nav');
+                    }
+                });
+            }
+        });
+    });
+
+    // Animation à l'apparition des sections
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // if (entry.target.id === 'skills') { animateSkillBars(); }
+                entry.target.classList.add('animate-fadeIn'); // Vous devrez peut-être définir cette classe d'animation
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
 });
