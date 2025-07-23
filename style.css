@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto+Mono:wght@300;400;500;600&display=swap');
-
+       
 body {
     font-family: 'Roboto Mono', monospace;
     background-color: #0a0a0a;
     color: #e5e5e5;
     scroll-behavior: smooth;
 }
-
+       
 .hacker-font {
     font-family: 'Orbitron', sans-serif;
 }
-
+       
 .cyber-border {
     position: relative;
 }
-
+       
 .cyber-border::before {
     content: '';
     position: absolute;
@@ -24,7 +24,7 @@ body {
     height: 2px;
     background: linear-gradient(90deg, transparent, #FF073A, transparent);
 }
-
+       
 .cyber-border::after {
     content: '';
     position: absolute;
@@ -34,31 +34,31 @@ body {
     height: 2px;
     background: linear-gradient(90deg, transparent, #FF073A, transparent);
 }
-
+       
 .terminal-line {
     position: relative;
     padding-left: 1.5rem;
 }
-
+       
 .terminal-line::before {
     content: '>';
     position: absolute;
     left: 0;
     color: #FF073A;
 }
-
+       
 .project-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 25px rgba(255, 7, 58, 0.3);
 }
-
+       
 .cyber-grid {
     background-image: 
         linear-gradient(rgba(255, 7, 58, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 7, 58, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
 }
-
+       
 .binary-rain {
     position: absolute;
     top: 0;
@@ -69,29 +69,29 @@ body {
     z-index: -1;
     opacity: 0.1;
 }
-
+       
 .binary-digit {
     position: absolute;
     color: #FF073A;
     font-size: 14px;
     animation: fall linear infinite;
 }
-
+       
 @keyframes fall {
     to {
         transform: translateY(100vh);
     }
 }
-
+       
 .contact-input:focus {
     outline: none;
     box-shadow: 0 0 0 2px #FF073A;
 }
-
+       
 .nav-link {
     position: relative;
 }
-
+       
 .nav-link::after {
     content: '';
     position: absolute;
@@ -102,15 +102,15 @@ body {
     background: #FF073A;
     transition: width 0.3s ease;
 }
-
+       
 .nav-link:hover::after {
     width: 100%;
 }
-
+       
 .active-nav::after {
     width: 100%;
 }
-
+       
 .blinking-cursor {
     animation: blink-caret 0.75s step-end infinite;
     color: #FF073A;
@@ -124,13 +124,13 @@ body {
     from, to { opacity: 0 }
     50% { opacity: 1 }
 }
-
+       
 .typewriter {
     overflow: hidden;
     white-space: nowrap;
     animation: typing 3.5s steps(40, end);
 }
-
+       
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
